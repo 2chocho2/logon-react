@@ -31,20 +31,20 @@ const LogonMain = () => {
   const handlerClickWrite = () => {
     axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/comon/logon/distinct/write`)
       .then(res => {
-        history.push({
-          pathname: `/comon/logon/write`
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        Swal.fire({
-          title: '✨오늘 일기를 이미 작성했습니다\n내일 다시 써주세요✨',
-          showConfirmButton: false,
-          width: 600,
-          padding: '40px 0px',
-          timer: 1500
-        });
-        history.push('/');
+        if (res.data == null) {
+          history.push({
+            pathname: `/comon/logon/write`
+          });
+        } else {
+          Swal.fire({
+            title: '✨오늘 일기를 이미 작성했습니다\n내일 다시 써주세요✨',
+            showConfirmButton: false,
+            width: 600,
+            padding: '40px 0px',
+            timer: 1500
+          });
+          history.push('/');
+        }
       })
   };
 
@@ -58,7 +58,7 @@ const LogonMain = () => {
       .get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/comon/logon`)
       .then((res) => {
         // data를 받아와서 상태변수에 저장
-        if(res.data != null) {
+        if (res.data != null) {
           setData(res.data);
         } else {
           setData([]);
@@ -213,7 +213,7 @@ const LogonMain = () => {
                 height={"900px"}
               />
             </div>
-            
+
             <button className='writeBtn-box' onClick={handlerClickWrite} title='기록하기 (일기를 작성하세요)'>
               <TbPencilPlus className='write-btn' />
             </button>

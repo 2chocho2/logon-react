@@ -81,7 +81,6 @@ const LogonWrite = ({ history }) => {
                     alert("이미지 크기는 1MB를 초과할 수 없습니다.");
                     return;
                 } else if (e.target.files[i]) {
-                    console.log(e.target.files[i].size);
                     let reader = new FileReader();
                     // 1. 파일을 읽어 버퍼에 저장합니다.
                     reader.readAsDataURL(e.target.files[i]);
